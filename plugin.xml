@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="ABAP Assistant"
+            id="com.abap.assistant.category">
+      </category>
+      <view
+            name="ABAP Assistant"
+            icon="icons/abap_assistant.png"
+            category="com.abap.assistant.category"
+            class="com.abap.assistant.views.ABAPAssistantView"
+            id="com.abap.assistant.views.ABAPAssistantView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="com.abap.assistant.views.ABAPAssistantView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   
+   <!-- Quick Actions -->
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="ABAP Assistant Quick Actions"
+            id="com.abap.assistant.commands.category">
+      </category>
+      <command
+            name="Quick Explain"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.quickExplain">
+      </command>
+      <command
+            name="Quick Optimize"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.quickOptimize">
+      </command>
+      <command
+            name="Quick Error Check"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.quickErrorCheck">
+      </command>
+      <command
+            name="Auto Fix"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.autoFix">
+      </command>
+      <command
+            name="Auto Optimize"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.autoOptimize">
+      </command>
+      <command
+            name="Open ABAP Assistant View"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.openView">
+      </command>
+      <command
+            name="Configure API Settings"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.configureAPI">
+      </command>
+      <command
+            name="Show Code Diff"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.showDiff">
+      </command>
+      <command
+            name="Deep Code Analysis"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.deepAnalysis">
+      </command>
+      <command
+            name="Configure Templates"
+            categoryId="com.abap.assistant.commands.category"
+            id="com.abap.assistant.commands.configureTemplates">
+      </command>
+   </extension>
+   
+   <!-- Handlers -->
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="com.abap.assistant.commands.quickExplain"
+            class="com.abap.assistant.handlers.QuickExplainHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.quickOptimize"
+            class="com.abap.assistant.handlers.QuickOptimizeHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.quickErrorCheck"
+            class="com.abap.assistant.handlers.QuickErrorCheckHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.autoFix"
+            class="com.abap.assistant.handlers.AutoFixHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.autoOptimize"
+            class="com.abap.assistant.handlers.AutoOptimizeHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.openView"
+            class="com.abap.assistant.handlers.OpenViewHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.configureAPI"
+            class="com.abap.assistant.handlers.ConfigureAPIHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.showDiff"
+            class="com.abap.assistant.handlers.ShowDiffHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.deepAnalysis"
+            class="com.abap.assistant.handlers.DeepCodeAnalysisHandler">
+      </handler>
+      <handler
+            commandId="com.abap.assistant.commands.configureTemplates"
+            class="com.abap.assistant.handlers.ConfigureTemplatesHandler">
+      </handler>
+   </extension>
+   
+   <!-- Context Menu Contributions -->
+   <extension
+         point="org.eclipse.ui.menus">
+      <!-- Main Menu Bar -->
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=window">
+         <menu
+               label="ABAP Assistant"
+               id="com.abap.assistant.mainmenu"
+               mnemonic="A">
+            <command
+                  commandId="com.abap.assistant.commands.openView"
+                  style="push"
+                  label="Open ABAP Assistant View">
+            </command>
+            <separator
+                  name="com.abap.assistant.separator.main1">
+            </separator>
+            <command
+                  commandId="com.abap.assistant.commands.quickExplain"
+                  style="push"
+                  label="Quick Explain Code">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.quickOptimize"
+                  style="push"
+                  label="Quick Optimize Code">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.quickErrorCheck"
+                  style="push"
+                  label="Quick Error Check">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.deepAnalysis"
+                  style="push"
+                  label="🧠 Deep Code Analysis">
+            </command>
+            <separator
+                  name="com.abap.assistant.separator.main2">
+            </separator>
+            <command
+                  commandId="com.abap.assistant.commands.showDiff"
+                  style="push"
+                  label="Show Code Changes">
+            </command>
+            <separator
+                  name="com.abap.assistant.separator.main3">
+            </separator>
+            <command
+                  commandId="com.abap.assistant.commands.configureAPI"
+                  style="push"
+                  label="Configure API Settings...">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.configureTemplates"
+                  style="push"
+                  label="Configure Templates...">
+            </command>
+         </menu>
+      </menuContribution>
+      <!-- Context Menu Contributions -->
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               label="ABAP Assistant"
+               id="com.abap.assistant.contextmenu">
+            <command
+                  commandId="com.abap.assistant.commands.quickExplain"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.quickOptimize"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.quickErrorCheck"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.deepAnalysis"
+                  style="push">
+            </command>
+            <separator
+                  name="com.abap.assistant.separator1">
+            </separator>
+            <command
+                  commandId="com.abap.assistant.commands.autoFix"
+                  style="push">
+            </command>
+            <command
+                  commandId="com.abap.assistant.commands.autoOptimize"
+                  style="push">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
+   
+   <!-- Preferences -->
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            name="ABAP Assistant"
+            class="com.abap.assistant.preferences.ABAPAssistantPreferencePage"
+            id="com.abap.assistant.preferences.ABAPAssistantPreferencePage">
+      </page>
+   </extension>
+   
+   <!-- Initialize on Startup -->
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="com.abap.assistant.startup.ABAPAssistantStartup">
+      </startup>
+   </extension>
+</plugin>

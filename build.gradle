@@ -1,0 +1,100 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+}
+
+group = 'com.abap.assistant'
+version = '1.0.0-SNAPSHOT'
+java.sourceCompatibility = JavaVersion.VERSION_11
+java.targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+    // Eclipse repositories would need to be configured for real build
+}
+
+dependencies {
+    // HTTP Client for ChatGPT API
+    implementation 'org.apache.httpcomponents:httpclient:4.5.14'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.16'
+    
+    // JSON Processing
+    implementation 'org.json:json:20230618'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // Apache POI for Document Processing
+    implementation 'org.apache.poi:poi:5.2.4'
+    implementation 'org.apache.poi:poi-ooxml:5.2.4'
+    implementation 'org.apache.poi:poi-scratchpad:5.2.4'
+    
+    // PDF Processing
+    implementation 'org.apache.pdfbox:pdfbox:2.0.29'
+    implementation 'org.apache.pdfbox:fontbox:2.0.29'
+    
+    // Utilities
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'org.apache.commons:commons-collections4:4.4'
+    implementation 'org.apache.commons:commons-compress:1.21'
+    
+    // Jackson for JSON processing
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    
+    // Logging
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'org.slf4j:slf4j-simple:1.7.36'
+    
+    // XMLBeans for POI
+    implementation 'org.apache.xmlbeans:xmlbeans:5.1.1'
+    
+    // Eclipse dependencies would be provided at runtime
+    compileOnly fileTree(dir: 'eclipse-libs', include: ['*.jar'])
+}
+
+// Task to copy dependencies to lib folder
+task copyDependencies(type: Copy) {
+    from configurations.runtimeClasspath
+    into 'lib'
+}
+
+// Task to create Eclipse plugin JAR
+task createPluginJar(type: Jar) {
+    archiveFileName = 'ABAPAssistant.jar'
+    destinationDirectory = file('dist')
+    
+    from sourceSets.main.output
+    from 'META-INF'
+    from 'plugin.xml'
+    from 'build.properties'
+    from fileTree('lib')
+    
+    manifest {
+        attributes(
+            'Bundle-ManifestVersion': '2',
+            'Bundle-Name': 'ABAP Programming Assistant',
+            'Bundle-SymbolicName': 'com.abap.assistant;singleton:=true',
+            'Bundle-Version': version,
+            'Bundle-Activator': 'com.abap.assistant.Activator',
+            'Bundle-Vendor': 'ABAP Assistant Team',
+            'Bundle-RequiredExecutionEnvironment': 'JavaSE-11',
+            'Bundle-ActivationPolicy': 'lazy'
+        )
+    }
+}
+
+build.dependsOn copyDependencies
+createPluginJar.dependsOn build
+
+// Eclipse configuration
+eclipse {
+    project {
+        name = 'ABAP Assistant Plugin'
+        natures 'org.eclipse.pde.PluginNature', 'org.eclipse.jdt.core.javanature'
+        buildCommands 'org.eclipse.pde.ManifestBuilder', 'org.eclipse.jdt.core.javabuilder'
+    }
+    
+    classpath {
+        containers 'org.eclipse.pde.core.requiredPlugins'
+    }
+}
