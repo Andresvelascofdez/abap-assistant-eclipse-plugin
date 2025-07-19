@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2025-07-20 🎨
+
+### Enhanced
+- **Simplified User Interface**: Removed technical parameters (Max Tokens, Temperature) from preferences
+- **Optimized AI Settings**: Automatic configuration with optimal values for ABAP development
+- **Better User Experience**: Clean, non-technical interface focused on essential settings
+- **Smart Defaults**: Max Tokens (8000) and Temperature (0.0) auto-configured for best code results
+
+### Technical Improvements
+- **AI Model Default**: Changed default from GPT-3.5 to GPT-4 for superior code analysis
+- **Token Optimization**: 8000 tokens ensures complete ABAP code responses without truncation
+- **Precision Mode**: Temperature 0.0 provides deterministic, consistent responses for code
+- **Automatic Configuration**: Technical parameters handled transparently without user intervention
+
+---
+
 ## [1.0.2] - 2025-07-20 🔧
 
 ### Fixed
@@ -325,12 +341,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Development Statistics
 
 - **Total Development Time**: 6+ months (January 2025 - July 2025)
-- **Major Releases**: 11 versions with significant feature additions
+- **Major Releases**: 12 versions with significant feature additions
 - **Lines of Code**: 15,000+ Java lines, 5,000+ configuration/docs
 - **External Dependencies**: 25+ carefully selected libraries
 - **Test Coverage**: 85%+ automated test coverage
 - **Supported Platforms**: Windows, Linux, macOS
 - **Bug Fixes**: 25+ critical issues resolved including compilation errors
+- **UX Improvements**: Simplified interface with optimal AI configurations
 
 ---
 

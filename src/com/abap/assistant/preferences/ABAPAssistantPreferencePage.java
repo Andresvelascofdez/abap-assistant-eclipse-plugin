@@ -19,7 +19,8 @@ public class ABAPAssistantPreferencePage extends FieldEditorPreferencePage
 
     public ABAPAssistantPreferencePage() {
         super(GRID);
-        setDescription("Configure ABAP Assistant settings");
+        setDescription("Configure ABAP Assistant settings\n\n" +
+                      "Technical parameters (Max Tokens: 8000, Temperature: 0.0) are automatically optimized for ABAP development.");
     }
 
     @Override
@@ -63,38 +64,6 @@ public class ABAPAssistantPreferencePage extends FieldEditorPreferencePage
             getFieldEditorParent()
         ));
         
-        // Max tokens
-        IntegerFieldEditor maxTokensEditor = new IntegerFieldEditor(
-            "max_tokens",
-            "Max Tokens:",
-            getFieldEditorParent()
-        );
-        maxTokensEditor.setValidRange(100, 8000);
-        addField(maxTokensEditor);
-        
-        // Temperature
-        addField(new StringFieldEditor(
-            "temperature",
-            "Temperature (0.0 - 2.0):",
-            getFieldEditorParent()
-        ) {
-            @Override
-            protected boolean doCheckState() {
-                try {
-                    double value = Double.parseDouble(getStringValue());
-                    if (value < 0.0 || value > 2.0) {
-                        setErrorMessage("Temperature must be between 0.0 and 2.0");
-                        return false;
-                    }
-                } catch (NumberFormatException e) {
-                    setErrorMessage("Temperature must be a valid number");
-                    return false;
-                }
-                clearErrorMessage();
-                return true;
-            }
-        });
-        
         // Enterprise features
         addField(new BooleanFieldEditor(
             "enterprise_audit",
@@ -125,14 +94,10 @@ public class ABAPAssistantPreferencePage extends FieldEditorPreferencePage
             ConfigurationManager config = ConfigurationManager.getInstance();
             config.setApiKey(getPreferenceStore().getString("api_key"));
             config.setModel(getPreferenceStore().getString("model"));
-            config.setMaxTokens(getPreferenceStore().getInt("max_tokens"));
             
-            try {
-                double temp = Double.parseDouble(getPreferenceStore().getString("temperature"));
-                config.setTemperature(temp);
-            } catch (NumberFormatException e) {
-                // Use default temperature
-            }
+            // Use optimal defaults - no user configuration needed
+            config.setMaxTokens(8000);  // Optimal for ABAP code responses
+            config.setTemperature(0.0); // Deterministic responses for code
             
             config.setEnterpriseAuditEnabled(getPreferenceStore().getBoolean("enterprise_audit"));
             config.setAutoSaveEnabled(getPreferenceStore().getBoolean("auto_save"));
@@ -145,11 +110,13 @@ public class ABAPAssistantPreferencePage extends FieldEditorPreferencePage
     protected void performDefaults() {
         super.performDefaults();
         
-        // Set default values
-        getPreferenceStore().setDefault("model", "gpt-3.5-turbo");
-        getPreferenceStore().setDefault("max_tokens", 2000);
-        getPreferenceStore().setDefault("temperature", "0.7");
+        // Set optimal default values for ABAP development
+        getPreferenceStore().setDefault("model", "gpt-4");  // Best model for code
         getPreferenceStore().setDefault("enterprise_audit", true);
         getPreferenceStore().setDefault("auto_save", false);
+        
+        // Technical parameters are handled automatically with optimal values:
+        // - Max Tokens: 8000 (allows complete ABAP code responses)
+        // - Temperature: 0.0 (deterministic, precise responses for code)
     }
 }

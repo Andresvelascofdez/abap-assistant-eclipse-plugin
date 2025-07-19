@@ -24,10 +24,10 @@ public class ConfigurationManager {
     private static final String INS_BEGIN_TEMPLATE = "ins_begin_template";
     private static final String INS_END_TEMPLATE = "ins_end_template";
     
-    // Default values
-    private static final String DEFAULT_MODEL = "gpt-3.5-turbo";
-    private static final int DEFAULT_MAX_TOKENS = 2000;
-    private static final double DEFAULT_TEMPERATURE = 0.7;
+    // Default values - Optimized for ABAP development
+    private static final String DEFAULT_MODEL = "gpt-4";
+    private static final int DEFAULT_MAX_TOKENS = 8000;  // Optimal for complete ABAP code responses
+    private static final double DEFAULT_TEMPERATURE = 0.0;  // Deterministic responses for code
     
     // Default ABAP modification templates with placeholders
     // {TICKET} = ticket number, {USER} = username, {DATE} = current date
