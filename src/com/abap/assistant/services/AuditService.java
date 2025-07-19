@@ -39,6 +39,29 @@ public class AuditService {
     }
     
     /**
+     * Record a code modification with ticket information in the audit trail
+     */
+    public void recordModificationWithTicket(String modificationType, String originalCode, 
+                                           String newCode, String fileName, 
+                                           String ticketNumber, String userName) {
+        String actualUserName = (userName != null) ? userName : System.getProperty("user.name");
+        String modificationTypeWithTicket = ticketNumber != null ? 
+            modificationType + " (Ticket: " + ticketNumber + ")" : modificationType;
+            
+        AuditEntry entry = new AuditEntry(
+            modificationTypeWithTicket,
+            fileName,
+            originalCode,
+            newCode,
+            actualUserName,
+            LocalDateTime.now()
+        );
+        
+        auditEntries.add(entry);
+        writeToAuditLog(entry);
+    }
+    
+    /**
      * Get audit history
      */
     public List<AuditEntry> getAuditHistory() {

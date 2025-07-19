@@ -129,6 +129,10 @@
             commandId="com.abap.assistant.commands.configureTemplates"
             class="com.abap.assistant.handlers.ConfigureTemplatesHandler">
       </handler>
+      <handler
+            commandId="com.abap.assistant.commands.manageDocumentContext"
+            class="com.abap.assistant.handlers.ManageDocumentContextHandler">
+      </handler>
    </extension>
    
    <!-- Context Menu Contributions -->

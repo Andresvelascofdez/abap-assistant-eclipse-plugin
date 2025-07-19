@@ -65,19 +65,15 @@ Write-Host "Failed: $($count - $success)" -ForegroundColor Red
 
 if ($success -eq $count) {
     Write-Host ""
-    Write-Host "🎉 ALL DEPENDENCIES READY! 🎉" -ForegroundColor Green
+    Write-Host "ALL DEPENDENCIES READY!" -ForegroundColor Green
     Write-Host ""
     Write-Host "Your ABAP Assistant now supports:" -ForegroundColor Cyan
-    Write-Host "  ✓ Deep Code Analysis" -ForegroundColor Green
-    Write-Host "  ✓ Variable Tracking" -ForegroundColor Green  
-    Write-Host "  ✓ Dependency Mapping" -ForegroundColor Green
-    Write-Host "  ✓ Advanced UI Dialogs" -ForegroundColor Green
-    Write-Host "  ✓ Full Eclipse Integration" -ForegroundColor Green
+    Write-Host "  Full Eclipse Integration" -ForegroundColor Green
     Write-Host ""
 } else {
     Write-Host ""
-    Write-Host "⚠️  Some downloads failed. Please check your internet connection." -ForegroundColor Yellow
+    Write-Host "Some downloads failed. Please check your internet connection." -ForegroundColor Yellow
 }
 
 Write-Host "Press any key to continue..."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')

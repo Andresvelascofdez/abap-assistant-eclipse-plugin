@@ -89,6 +89,14 @@ public class ChatGPTService {
     }
     
     /**
+     * Send message with document context integration
+     */
+    public ChatMessage sendMessageWithDocumentContext(String userMessage, String selectedCode, DocumentContextManager contextManager) throws Exception {
+        String contextualQuery = contextManager.buildContextualQuery(userMessage, selectedCode);
+        return sendMessage(contextualQuery);
+    }
+    
+    /**
      * Send message for deep code analysis with enhanced context
      */
     public String sendMessageForCodeAnalysis(String analysisPrompt, String codeContext) throws Exception {
@@ -216,7 +224,7 @@ public class ChatGPTService {
         return String.format(
             "Realiza un análisis profundo del siguiente código ABAP:\n\n" +
             "%s\n\n" +
-            "CONTEXTO DEL ANÁLISIS:\n%s\n\n" +
+            "CONTEXTO DEL ANALISIS:\n%s\n\n" +
             "Por favor proporciona:\n" +
             "1. Análisis de calidad del código\n" +
             "2. Identificación de patrones de diseño\n" +
@@ -237,7 +245,7 @@ public class ChatGPTService {
         return String.format(
             "ARCHIVO: %s\n\n" +
             "CONTENIDO DEL CÓDIGO:\n%s\n\n" +
-            "CONTEXTO DE ANÁLISIS:\n%s\n\n" +
+            "CONTEXTO DE ANALISIS:\n%s\n\n" +
             "Proporciona insights específicos sobre:\n" +
             "1. Arquitectura y estructura del código\n" +
             "2. Flujo de datos y lógica de negocio\n" +

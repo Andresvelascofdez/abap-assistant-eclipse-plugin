@@ -10,8 +10,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.KeyAdapter;
@@ -21,20 +19,21 @@ import org.eclipse.ui.part.ViewPart;
 import com.abap.assistant.services.ChatGPTService;
 import com.abap.assistant.services.DocumentProcessorService;
 import com.abap.assistant.services.ContextCaptureService;
+import com.abap.assistant.services.DocumentContextManager;
 import com.abap.assistant.models.ChatMessage;
 
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.dnd.*;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -68,6 +67,7 @@ public class ABAPAssistantView extends ViewPart {
     private ChatGPTService chatService;
     private DocumentProcessorService docProcessor;
     private ContextCaptureService contextCapture;
+    private DocumentContextManager contextManager;
 
     @Override
     public void createPartControl(Composite parent) {
@@ -81,6 +81,7 @@ public class ABAPAssistantView extends ViewPart {
         chatService = new ChatGPTService();
         docProcessor = new DocumentProcessorService();
         contextCapture = new ContextCaptureService();
+        contextManager = new DocumentContextManager();
     }
     
     /**
@@ -398,22 +399,36 @@ public class ABAPAssistantView extends ViewPart {
         appendToChat("You: " + message + "\n\n");
         inputText.setText("");
         
-        sendAIRequest("Chat", message);
+        // Use document context integration for better responses
+        sendAIRequestWithContext("Chat", message);
     }
     
-    private void sendAIRequest(String action, String prompt) {
-        updateStatus("Sending request to ChatGPT...");
+    private void sendAIRequestWithContext(String action, String prompt) {
+        updateStatus("Sending request to ChatGPT with document context...");
         
         Job job = new Job("AI Request: " + action) {
             @Override
             protected IStatus run(IProgressMonitor monitor) {
                 try {
-                    ChatMessage response = chatService.sendMessage(prompt);
+                    String selectedCode = getSelectedCodeFromEditor();
+                    ChatMessage response;
                     
-                    PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-                        appendToChat("🤖 AI Assistant (" + action + "):\n" + response.getContent() + "\n\n");
-                        updateStatus("Response received");
-                    });
+                    // Use document context if available, otherwise use standard message
+                    if (contextManager.hasContext()) {
+                        response = chatService.sendMessageWithDocumentContext(prompt, selectedCode, contextManager);
+                        
+                        PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+                            appendToChat("🤖 AI Assistant (" + action + "):\n" + response.getContent() + "\n\n");
+                            updateStatus("Response with document context (" + contextManager.getAvailableDocuments().size() + " docs)");
+                        });
+                    } else {
+                        response = chatService.sendMessage(prompt);
+                        
+                        PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
+                            appendToChat("🤖 AI Assistant (" + action + "):\n" + response.getContent() + "\n\n");
+                            updateStatus("Response received");
+                        });
+                    }
                     
                 } catch (Exception e) {
                     PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
@@ -425,6 +440,11 @@ public class ABAPAssistantView extends ViewPart {
             }
         };
         job.schedule();
+    }
+    
+    // Legacy method for Quick Actions - can be updated later to use context
+    private void sendAIRequest(String action, String prompt) {
+        sendAIRequestWithContext(action, prompt);
     }
     
     private void attachDocument() {
@@ -451,9 +471,14 @@ public class ABAPAssistantView extends ViewPart {
                     String content = docProcessor.processDocument(filePath);
                     attachedFiles.add(filePath);
                     
+                    // Add to context manager for AI integration
+                    contextManager.addDocument(filePath, content);
+                    
                     PlatformUI.getWorkbench().getDisplay().asyncExec(() -> {
-                        appendToChat("📎 Attached: " + filePath + "\nContent preview: " + content.substring(0, Math.min(200, content.length())) + "...\n\n");
-                        updateStatus("📄 Document processed: " + filePath);
+                        String contextSummary = contextManager.getContextSummary();
+                        appendToChat("📎 Attached: " + filePath + "\nContent preview: " + content.substring(0, Math.min(200, content.length())) + "...\n");
+                        appendToChat("📊 " + contextSummary + "\n\n");
+                        updateStatus("📄 Document processed and added to context: " + filePath);
                     });
                     
                 } catch (Exception e) {
