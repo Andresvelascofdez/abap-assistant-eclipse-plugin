@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.9.0] - 2025-06-28 🛠️
+## [0.9.0] - 2025-07-05 🛠️
 
 ### Added
 - **Enhanced Auto Modification Service**: Intelligent code modification with proper ABAP markers
@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.8.5] - 2025-06-12 🎨
+## [0.8.5] - 2025-06-20 🎨
 
 ### Added
 - **Native Eclipse Icons**: Replaced placeholder icons with Eclipse-native implementations
@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.8.0] - 2025-05-30 🧠
+## [0.8.0] - 2025-06-05 🧠
 
 ### Added
 - **Deep Code Analysis**: Advanced AI-powered code analysis with detailed insights
@@ -68,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.7.5] - 2025-05-15 📊
+## [0.7.5] - 2025-05-20 📊
 
 ### Added
 - **Code Diff Visualization**: Side-by-side comparison of original vs. optimized code
@@ -83,7 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.7.0] - 2025-04-25 ⚡
+## [0.7.0] - 2025-05-05 ⚡
 
 ### Added
 - **Auto Optimize Handler**: Intelligent code optimization with AI suggestions
@@ -98,7 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.6.5] - 2025-04-10 🔧
+## [0.6.5] - 2025-04-20 🔧
 
 ### Added
 - **Auto Fix Handler**: Intelligent automatic fixing of common ABAP issues
@@ -113,7 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.6.0] - 2025-03-28 📄
+## [0.6.0] - 2025-04-05 📄
 
 ### Added
 - **Document Processing Framework**: Support for PDF, DOC, DOCX, and TXT files
@@ -128,7 +128,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.5.5] - 2025-03-15 🚀
+## [0.5.5] - 2025-03-20 🚀
 
 ### Added
 - **Quick Action Framework**: Foundation for rapid development actions
@@ -218,7 +218,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.2.5] - 2025-01-15 🏗️
+## [0.2.5] - 2025-01-20 🏗️
 
 ### Added
 - **Core Plugin Infrastructure**: Eclipse RCP plugin foundation
@@ -233,7 +233,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.2.0] - 2025-01-05 📱
+## [0.2.0] - 2025-01-15 📱
 
 ### Added
 - **Basic UI Framework**: Foundation user interface components
@@ -248,7 +248,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.1.5] - 2024-12-20 📦
+## [0.1.5] - 2025-01-10 📦
 
 ### Added
 - **Dependency Management**: Integration of external libraries and frameworks
@@ -263,7 +263,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.1.0] - 2024-12-01 🎯
+## [0.1.0] - 2025-01-05 🎯
 
 ### Added
 - **Project Initialization**: Basic project structure and Eclipse plugin scaffold
@@ -278,7 +278,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [0.0.1] - 2024-02-15 🚀
+## [0.0.1] - 2025-01-15 🚀
 
 ### Added
 - **Initial Concept**: Project conception and requirements gathering
@@ -290,7 +290,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Development Statistics
 
-- **Total Development Time**: 5+ months (February 2024 - July 2025)
+- **Total Development Time**: 6+ months (January 2025 - July 2025)
 - **Major Releases**: 10 versions with significant feature additions
 - **Lines of Code**: 15,000+ Java lines, 5,000+ configuration/docs
 - **External Dependencies**: 25+ carefully selected libraries
@@ -301,18 +301,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Upcoming Features (Roadmap)
 
-### [1.1.0] - Planned Q3 2025
-- **Team Collaboration**: Multi-developer modification tracking
-- **SAP Transport Integration**: Direct integration with SAP transport system
-- **Advanced AI Models**: Support for GPT-4 and specialized coding models
-- **Code Generation Templates**: Reusable code templates with AI assistance
+### [1.1.0] - Planned Q4 2025
+- **Custom AI Prompts**: Ability to save and reuse custom ChatGPT prompts for specific ABAP patterns
+- **Code Snippet Library**: Personal library of frequently used ABAP code snippets
+- **Template Export/Import**: Share modification templates between different Eclipse workspaces
+- **Performance Hints**: AI suggestions for common ABAP performance improvements
 
-### [1.2.0] - Planned Q4 2025  
-- **Cloud Integration**: Support for SAP Business Technology Platform
-- **Version Control Integration**: Git/SVN integration for ABAP code
-- **Metrics Dashboard**: Development productivity analytics
-- **Mobile Companion**: Mobile app for code review and approvals
+### [1.2.0] - Planned Q1 2026
+- **Document Context Integration**: Automatically include processed document content in ChatGPT queries
+- **Smart Content Summarization**: AI-powered extraction of relevant sections from large documents
+- **Document-Code Linking**: Connect specific document sections to related ABAP code modifications
+- **Selective Context Mode**: Choose which attached documents to include in specific queries
 
 ---
 
-*This project represents continuous innovation in ABAP development tooling, combining traditional SAP development practices with cutting-edge AI technology.*
+*This plugin is designed as a personal productivity tool for ABAP consultants, focusing on practical enhancements that improve daily development workflows and code quality.*

@@ -59,7 +59,7 @@ The plugin is currently used internally to improve service delivery, with **pote
 | Core Libraries       | Apache POI, PDFBox, HttpClient                    |
 | AI Integration       | GPT-4 API with dynamic prompts                    |
 | Codebase Size        | ~5,000 lines Java, ~1,000 configuration/resources |
-| Development Time     | ~1,000 hours (personal R&D in 2024–2025)          |
+| Development Time     | ~1,000 hours (personal R&D in January-July 2025)     |
 | Ownership            | 100% owned and developed by applicant in Cyprus   |
 | Development Location | All R&D activities conducted in Cyprus residence  |
 | Version Control      | Tracked in private Git repository                 |
@@ -121,7 +121,7 @@ This reflects the **real replacement value** of the IP created by the applicant.
 
 ## 📄 Supporting Materials
 
-- **Git commit history**: Complete development timeline from February 2024 to July 2025
+- **Git commit history**: Complete development timeline from January 2025 to July 2025
 - **Version control logs**: Detailed commit messages documenting feature development progression
 - **Client usage examples**: Anonymized screenshots showing real-world application in client projects
 - **Development documentation**: Technical architecture notes and implementation decisions
